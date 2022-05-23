@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from 'react';
+import { Toaster } from 'react-hot-toast';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import BodyComponent from './Components/BodyComponent';
+import { ContextApp } from './store/Store';
+import ModalSelectTypeReserv from './Components/ModalSelectTypeReserv';
+import ModalReserveWithUser from './Components/ModalReserveWithUser';
+import ModalRegisterUser from './Components/ModalRegisterUser';
+import ModalSuccess from './Components/ModatSuccess';
+import ModalError from './Components/ModatError';
 
-function App() {
+const App = () => {
+  const { state } = useContext(ContextApp);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {state.modal_select_type_reservation && <ModalSelectTypeReserv />}
+      {state.modal_reserve_with_user && <ModalReserveWithUser />}
+      {state.modal_register_user && <ModalRegisterUser />}
+      {state.modal_reservation_success && <ModalSuccess />}
+      {state.modal_reservation_error && <ModalError />}
+      <main>
+        <Header />
+        <BodyComponent />
+        <Footer />
+        <Toaster position="top-right" />
+      </main>
+    </>
   );
-}
+};
 
 export default App;
